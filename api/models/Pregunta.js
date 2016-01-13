@@ -19,7 +19,10 @@ module.exports = {
     	type: 'string',
     	size:255,
     	required: true	
-    	 }
+    	 },
+    cuestionarios:{
+    collection: 'cuestionario',
+    via:'preguntas'
+  }
   }
 };
-
