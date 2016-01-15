@@ -9,7 +9,7 @@ module.exports = {
 	load: function(req, res, next){
 		Cuestionario.findOne({
 			where: { id: Number(req.params.cuestionarioId)}
-		}).then(function(cuestionario){
+		}).populate('preguntas').then(function(cuestionario){
 		if(cuestionario){
 			req.cuestionario=cuestionario;
 			next();
@@ -19,8 +19,16 @@ module.exports = {
 	},
 
 	duplicar: function(req, res, next){
-	
-	
+	//Cuestionario.duplicar
+	//(req.cuestionario,function (err, cuestionarioDuplicado)
+	//{ req.json (cuestionarioDuplicado)}
+	//);
+
+
+	req.cuestionario.duplicar
+		(function (err, cuestionarioDuplicado)
+		{ res.json (cuestionarioDuplicado)}
+		);
 	}
 
 };

@@ -15,6 +15,19 @@ module.exports = {
 preguntas:{
 	collection: 'pregunta',
 	via:'cuestionarios'
+  },
+
+  duplicar:function(cb){
+ 	cuestionarioJSON=this.toJSON();
+    delete cuestionarioJSON["id"];
+	Cuestionario.create(cuestionarioJSON).exec(function createCB(err, created){
+      if (err) return cb(err);
+      //cuestionario.preguntas.forEach(function(pregunta){
+      	//created.preguntas.add(pregunta.id)
+      //});
+      cb(null, created);
+    })
+
   }
 },
 
@@ -24,7 +37,7 @@ duplicar: function (cuestionario, cb) {
   // cuestionario we're even talking about:
   (function _lookupCuestionario(afterLookup){
     // (this self-calling function is just for concise-ness)
-    if (typeof cuestionario === 'object')) return afterLookup(null, cuestionario);
+    if (typeof cuestionario === 'object') return afterLookup(null, cuestionario);
     cuestionario.findOne(cuestionario).exec(afterLookup);
   })(function (err, cuestionario){
     if (err) return cb(err);
@@ -38,9 +51,9 @@ duplicar: function (cuestionario, cb) {
     delete cuestionarioJSON("id");
 Cuestionario.create(cuestionarioJSON).exec(function createCB(err, created){
       if (err) return cb(err);
-      cuestionario.preguntas.forEach(function(pregunta){
-      	created.preguntas.add(pregunta.id)
-      });
+      //cuestionario.preguntas.forEach(function(pregunta){
+      	//created.preguntas.add(pregunta.id)
+      //});
       cb(null, created);
     })
   });
