@@ -15,7 +15,11 @@ module.exports = {
 preguntas:{
 	collection: 'pregunta',
 	via:'cuestionarios'
-  },
+  }, 
+  alumnos : {
+      collection : 'alumno',
+      via : 'cuestionarios'
+    },
 
   duplicar:function(cb){
  	cuestionarioJSON=this.toJSON();
@@ -28,6 +32,15 @@ preguntas:{
       cb(null, created);
     })
 
+  
+},
+asociarGrupo: function (grupo, cb) {
+
+      while (grupo.alumnos.length){
+        var alumno = grupo.alumnos.pop();
+        this.alumnos.add(alumno.id);
+        this.save();
+      }
   }
 },
 

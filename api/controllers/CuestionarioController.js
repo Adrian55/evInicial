@@ -18,17 +18,22 @@ module.exports = {
 	
 	},
 
+
+
 	duplicar: function(req, res, next){
 	//Cuestionario.duplicar
 	//(req.cuestionario,function (err, cuestionarioDuplicado)
 	//{ req.json (cuestionarioDuplicado)}
 	//);
-
-
 	req.cuestionario.duplicar
 		(function (err, cuestionarioDuplicado)
 		{ res.json (cuestionarioDuplicado)}
 		);
+	},
+
+	asociaGrupo: function(req, res, next){
+	req.cuestionario.asociarGrupo(req.grupo);
+		res.json(req.cuestionario);
 	}
 
 };
