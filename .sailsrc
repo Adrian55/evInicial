@@ -1,11 +1,8 @@
 {
   "generators": {
-<<<<<<< HEAD
-    "modules": {}
-=======
     "modules": {
       "permissions-api": "sails-permissions/generator"
     }
->>>>>>> 585181014b72199adff224b865b9e6b47a9a4ae0
+
   }
 }

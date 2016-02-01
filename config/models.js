@@ -27,10 +27,8 @@ module.exports.models = {
   * See http://sailsjs.org/#!/documentation/concepts/ORM/model-settings.html  *
   *                                                                          *
   ***************************************************************************/
-<<<<<<< HEAD
-   migrate: 'drop'
-=======
+
   // migrate: 'alter'
->>>>>>> 585181014b72199adff224b865b9e6b47a9a4ae0
+
 
 };
