@@ -15,7 +15,6 @@ module.exports = {
 			next();
 		}else{next(new Error ('No existe el alumno con el id'+req.params.alumnoId))} 
 		}).catch(function(error){next(error);});
-	
-	}
+
 };
 

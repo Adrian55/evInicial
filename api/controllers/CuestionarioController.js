@@ -6,33 +6,36 @@
  */
 
 module.exports = {
-	load: function(req, res, next){
+	
+	load: function(req, res, next) {
 		Cuestionario.findOne({
 			where: { id: Number(req.params.cuestionarioId)}
 		}).populate('preguntas').then(function(cuestionario){
-		if(cuestionario){
-			req.cuestionario=cuestionario;
-			next();
-		}else{next(new Error ('No existe el cuestionario con el id'+req.params.cuestionarioId))} 
+			if(cuestionario) {
+				req.cuestionario = cuestionario;
+				next();
+			} else { next(new Error('No existe el cuestionario con el id' + req.params.cuestionarioId));}
 		}).catch(function(error){next(error);});
-	
 	},
 
+	duplicar: function(req, res, next) {
+/* Con metodo de clase 
+		Cuestionario.duplicar
+			(req.cuestionario,	function (err, cuestionarioDuplicado)
+				{ res.json(cuestionarioDuplicado)}
+			);
+*/
+/* Con metodo de instancia */
 
-
-	duplicar: function(req, res, next){
-	//Cuestionario.duplicar
-	//(req.cuestionario,function (err, cuestionarioDuplicado)
-	//{ req.json (cuestionarioDuplicado)}
-	//);
-	req.cuestionario.duplicar
-		(function (err, cuestionarioDuplicado)
-		{ res.json (cuestionarioDuplicado)}
-		);
+		req.cuestionario.duplicar
+			(function (err, cuestionarioDuplicado)
+				{ res.json(cuestionarioDuplicado)}
+			);
 	},
 
-	asociaGrupo: function(req, res, next){
-	req.cuestionario.asociarGrupo(req.grupo);
+	asociarGrupo: function(req, res, next) {
+		console.log(req.cuestionario.id + ' - ' + req.cuestionario.alumnos)
+		req.cuestionario.asociarGrupo(req.grupo);
 		res.json(req.cuestionario);
 	}
 

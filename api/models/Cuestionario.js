@@ -10,64 +10,74 @@ module.exports = {
   attributes: {
 
     observaciones : { type: 'string' },
-	fechaFin : { type: 'date' },
 
-preguntas:{
-	collection: 'pregunta',
-	via:'cuestionarios'
-  }, 
-  alumnos : {
-      collection : 'alumno',
-      via : 'cuestionarios'
+    fechaFin : { type: 'date' },
+
+    preguntas : {
+    	collection : 'pregunta',
+    	via : 'cuestionarios'
     },
 
-  duplicar:function(cb){
- 	cuestionarioJSON=this.toJSON();
-    delete cuestionarioJSON["id"];
-	Cuestionario.create(cuestionarioJSON).exec(function createCB(err, created){
-      if (err) return cb(err);
-      //cuestionario.preguntas.forEach(function(pregunta){
-      	//created.preguntas.add(pregunta.id)
-      //});
-      cb(null, created);
-    })
+    alumnos : {
+    	collection : 'alumno',
+    	via : 'cuestionarios'
+    },
 
-  
-},
-asociarGrupo: function (grupo, cb) {
+    duplicar: function (cb) {
+	    cuestionarioJSON = this.toJSON();
+	    delete cuestionarioJSON["id"];
+	    Cuestionario.create(cuestionarioJSON)
+	    	.exec(function createCB(err, created){
+			      if (err) return cb(err);
+			      /*
+			      cuestionario.preguntas.forEach(function(pregunta){
+			      	created.preguntas.add(pregunta.id)
+			      });
+				*/
+			    cb(null, created);
+	    })
+    },
 
-      while (grupo.alumnos.length){
-        var alumno = grupo.alumnos.pop();
-        this.alumnos.add(alumno.id);
-        this.save();
-      }
-  }
-},
+  asociarGrupo: function (grupo, cb) {
 
-duplicar: function (cuestionario, cb) {
- // Before doing anything else, check if a primary key value
+	    while (grupo.alumnos.length){
+	    	var alumno = grupo.alumnos.pop();
+		    this.alumnos.add(alumno.id);
+		    this.save(console.log);
+	    }
+    }
+  },
+
+  duplicar: function (cuestionario, cb) {
+
+  // Before doing anything else, check if a primary key value
   // was passed in instead of a record, and if so, lookup which
-  // cuestionario we're even talking about:
-  (function _lookupCuestionario(afterLookup){
+  // person we're even talking about:
+  (function _lookupCuestionarioIfNecessary(afterLookup){
     // (this self-calling function is just for concise-ness)
-    if (typeof cuestionario === 'object') return afterLookup(null, cuestionario);
-    cuestionario.findOne(cuestionario).exec(afterLookup);
+    if (typeof cuestionario === 'object')
+  		return afterLookup(null, cuestionario);
+    Cuestionario.findOne(cuestionario).populate('preguntas').exec(afterLookup);
   })(function (err, cuestionario){
     if (err) return cb(err);
     if (!cuestionario) {
       err = new Error();
-      err.message = require('util').format(' No existe un cuestionario con el id=%s .', cuestionario);
+      err.message = require('util').format('No existe ningun cuestionario con el id=%s .', cuestionario);
       err.status = 404;
       return cb(err);
     }
-    cuestionarioJSON=cuestionario.toJSON();
-    delete cuestionarioJSON("id");
-Cuestionario.create(cuestionarioJSON).exec(function createCB(err, created){
-      if (err) return cb(err);
-      //cuestionario.preguntas.forEach(function(pregunta){
-      	//created.preguntas.add(pregunta.id)
-      //});
-      cb(null, created);
+
+    cuestionarioJSON = cuestionario.toJSON();
+    delete cuestionarioJSON["id"];
+    Cuestionario.create(cuestionarioJSON)
+    	.exec(function createCB(err, created){
+		      if (err) return cb(err);
+		      /*
+		      cuestionario.preguntas.forEach(function(pregunta){
+		      	created.preguntas.add(pregunta.id)
+		      });
+			*/
+		      cb(null, created);
     })
   });
 

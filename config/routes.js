@@ -45,6 +45,7 @@ module.exports.routes = {
   * for configuration options and examples.                                  *
   *                                                                          *
   ***************************************************************************/
+<<<<<<< HEAD
 'GET r|^/pregunta/(\\d+)/corregir$|preguntaId' : [
 'PreguntaController.load',
 'PreguntaController.corregirRespuesta'
@@ -58,4 +59,22 @@ module.exports.routes = {
 'CuestionarioController.load',
 'CuestionarioController.asociaGrupo'
 ]
+=======
+  'GET r|^/pregunta/(\\d+)/corregir$|preguntaId' : [
+    'PreguntaController.load',
+    'PreguntaController.corregirRespuesta'
+  ],
+
+    'POST r|^/cuestionario/(\\d+)/duplicar$|cuestionarioId' : [
+    'CuestionarioController.load',
+    'CuestionarioController.duplicar'
+  ],
+
+    'POST r|^/cuestionario/(\\d+)/asociarGrupo/(\\d+)$|cuestionarioId,grupoId' : [
+    'CuestionarioController.load',
+    'GrupoController.load',
+    'CuestionarioController.asociarGrupo'
+  ],
+
+>>>>>>> 585181014b72199adff224b865b9e6b47a9a4ae0
 };
