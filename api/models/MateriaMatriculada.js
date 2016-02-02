@@ -28,7 +28,7 @@ module.exports = {
     	type: 'string', 
 		size:7,
     	required: true
-    }
+    },
      alumnos:{
     collection: 'alumno',
     via:'materias'

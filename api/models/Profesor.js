@@ -16,10 +16,10 @@ module.exports = {
     },
 
     apellidos : { 
-    	type: 'string'
+    	type: 'string',
     	size:19,
     	required: true
-    	 },
+    },
 
     email : {
      type: 'string',
