@@ -7,24 +7,17 @@
 
 module.exports = {
 
-  attributes: {
+	attributes: {
 
-    nombre : { 
-    	type: 'string' ,
-    	size:19,
-    	required: true
-    },
+		apellidos: { type: 'string', size: 19 },
 
-    apellidos : { 
-    	type: 'string',
-    	size:19,
-    	required: true
-    },
+		nombre: { type: 'string', size: 19 },
 
-    email : {
-     type: 'string',
-     size:100, 
- }
-  }
+		email: { type: 'string', size: 100 },
+
+		materias: { collection: 'MateriaImpartida', via: 'profesor' }
+
+	}
+
 };
 

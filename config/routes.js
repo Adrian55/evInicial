@@ -60,4 +60,5 @@ module.exports.routes = {
     'GrupoController.load',
     'CuestionarioController.asociarGrupo'
   ],
+
 };

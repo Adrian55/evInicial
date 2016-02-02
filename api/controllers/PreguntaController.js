@@ -5,7 +5,8 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
-module.exports = {	
+module.exports = {
+	
 	load: function(req, res, next) {
 		Pregunta.findOne({
 			where: { id: Number(req.params.preguntaId)}
